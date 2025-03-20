@@ -1,5 +1,5 @@
 /**
- * Task 1 Funtional Programming
+ * Task 1 Functional Programming
  */
 const data = `city,population,area,density,country
 Shanghai,24256800,6340,3826,China
