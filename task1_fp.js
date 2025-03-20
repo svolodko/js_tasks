@@ -1,5 +1,5 @@
 /**
- * Task 1 refactoring
+ * Task 1 Funtional Programming
  */
 const data = `city,population,area,density,country
 Shanghai,24256800,6340,3826,China
@@ -21,42 +21,38 @@ function parseData(data) {
     const table = [];
     if (data) {
         data.split('\n')
-            .slice(0, -1)
             .forEach((row, index) => {
                 if (index > 0) {
-                    table.push(parseRow(row));
+                    table.push(row.split(','));
                 }
             });
     }
     return table;
 }
 
-function parseRow(row) {
-    return row.split(',');
-}
-
 function processTable(table) {
-    sortTable(table);
-    addPercent(table);
+    removeLastRow();
+    sortTable();
+    addPercent();
 }
 
-function addPercent(table) {
-    if (table.length === 0) {
-        return null;
-    } 
-    const max = table[0][3];
-    table.forEach((row) => {
-        const percent = calcPercent(max, row[3]);
+function removeLastRow() {
+    table.pop();
+}
+
+function sortTable() {
+    table.sort((r1, r2) => r2[3] - r1[3])
+}
+
+function addPercent() {
+    table.forEach((row, index, arr) => {
+        const percent = calcPercent(arr[0][3], row[3]);
         row.push(percent.toString()); 
-    })
+    });
 }
 
 function calcPercent(max, curVal) {
     return Math.round((curVal * 100) / max);
-}
-
-function sortTable(table) {
-    table.sort((r1, r2) => r2[3] - r1[3]);
 }
 
 function printTable(table) {
